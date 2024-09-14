@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:core": "pnpm run --filter test @packages/core",
+    "test:core": "pnpm --filter @keanu/core test",
+    "type:core": "pnpm --filter @keanu/core type",
     "format": "pnpm biome check --write",
     "lint": "pnpm biome check"
   },
