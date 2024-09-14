@@ -1,0 +1,18 @@
+{
+  "name": "keanu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:core": "pnpm run --filter test @packages/core"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@9.7.0",
+  "devDependencies": {
+    "@vitest/coverage-istanbul": "^2.1.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.1"
+  }
+}
