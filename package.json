@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:core": "pnpm run --filter test @packages/core"
+    "test:core": "pnpm run --filter test @packages/core",
+    "format": "pnpm biome check --write",
+    "lint": "pnpm biome check"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "packageManager": "pnpm@9.7.0",
   "devDependencies": {
+    "@biomejs/biome": "1.9.0",
     "@vitest/coverage-istanbul": "^2.1.1",
     "typescript": "^5.5.4",
     "vitest": "^2.1.1"
