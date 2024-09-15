@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["packages/**/coverage/**/*"]
+    "ignore": ["packages/**/coverage/**/*", ".nx/"]
   },
   "formatter": {
     "enabled": true,

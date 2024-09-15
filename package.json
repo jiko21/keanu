@@ -6,8 +6,8 @@
   "scripts": {
     "test": "nx affected --target=test",
     "type": "nx affected --target=type",
-    "format": "pnpm biome check --write",
-    "lint": "pnpm biome check"
+    "format": "nx affected --target=format  --output-style=errors-only",
+    "lint": "nx affected --target=lint"
   },
   "keywords": [],
   "author": "",

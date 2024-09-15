@@ -30,4 +30,4 @@ jobs:
     - uses: nrwl/nx-set-shas@v4
       with:
         main-branch-name: main
-    - run: pnpm test
+    - run: pnpm exec nx affected -t lint test type
