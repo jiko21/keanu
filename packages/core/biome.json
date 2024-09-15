@@ -1,0 +1,13 @@
+{
+  "extends": ["../../biome.json"],
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "ignore": ["/coverage/**/*", "node_modules/"]
+  }
+}

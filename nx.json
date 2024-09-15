@@ -14,6 +14,16 @@
         "{projectRoot}/packages/**/coverage"
       ],
       "cache": true
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "format": {
+      "dependsOn": [
+        "^format"
+      ]
     }
   },
   "defaultBase": "main",
@@ -29,6 +39,5 @@
         "typecheckTargetName": "typecheck"
       }
     }
-  ],
-  "nxCloudId": "66e6469e6fb6402a3d4fde1c"
+  ]
 }
