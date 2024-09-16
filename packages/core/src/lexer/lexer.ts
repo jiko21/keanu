@@ -97,31 +97,22 @@ export class Lexer {
   }
 
   private _parseLiteral() {
-    if (this.inParentheses) {
-      while (
-        this.input[this.readCurrentPosition] !== ')' &&
-        this.readCurrentPosition !== this.input.length
-      ) {
-        this.readCurrentPosition++;
-      }
-    } else {
-      while (
-        this.input[this.readCurrentPosition] !== ' ' &&
-        this.input[this.readCurrentPosition] !== '\n' &&
-        this.input[this.readCurrentPosition] !== '\r' &&
-        this.input[this.readCurrentPosition] !== '\t' &&
-        this.input[this.readCurrentPosition] !== ':' &&
-        this.input[this.readCurrentPosition] !== '-' &&
-        this.input[this.readCurrentPosition] !== '<' &&
-        this.input[this.readCurrentPosition] !== '>' &&
-        this.input[this.readCurrentPosition] !== '{' &&
-        this.input[this.readCurrentPosition] !== '}' &&
-        this.input[this.readCurrentPosition] !== '(' &&
-        this.input[this.readCurrentPosition] !== ')' &&
-        this.readCurrentPosition !== this.input.length
-      ) {
-        this.readCurrentPosition++;
-      }
+    while (
+      (this.inParentheses || this.input[this.readCurrentPosition] !== ' ') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '\n') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '\r') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '\t') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== ':') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '-') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '<') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '>') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '{') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '}') &&
+      (this.inParentheses || this.input[this.readCurrentPosition] !== '(') &&
+      this.input[this.readCurrentPosition] !== ')' &&
+      this.readCurrentPosition !== this.input.length
+    ) {
+      this.readCurrentPosition++;
     }
 
     const text = this.input.substring(
