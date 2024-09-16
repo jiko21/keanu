@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "type": "tsc --noEmit",
-    "test": "nx vite:test",
+    "test": "nx vite:test --coverage",
     "lint": "pnpm biome check",
     "format": "pnpm biome check --write"
   },
