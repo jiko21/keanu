@@ -1,4 +1,4 @@
-import type { Token } from '../token/token';
+import type { Token } from '../token';
 
 class ParseError extends Error {}
 
