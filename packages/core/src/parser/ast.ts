@@ -21,6 +21,11 @@ export type TextWithoutSpace = {
   value: string;
 };
 
+export type TextWithSpace = {
+  type: 'textWithSpace';
+  value: string;
+};
+
 export type Identifier = {
   type: 'identifier';
   value: TextWithoutSpace;
@@ -31,12 +36,21 @@ export type Value = {
   value: TextWithoutSpace;
 };
 
+export type Flow = {
+  type: 'flow';
+  from: Identifier;
+  to: Identifier;
+  label?: TextWithSpace;
+};
+
 export type BaseAst =
   | Status
   | Statements
   | Statement
   | TextWithoutSpace
+  | TextWithSpace
   | Identifier
-  | Value;
+  | Value
+  | Flow;
 
-export type RootAst = Status;
+export type RootAst = Status | Flow;
