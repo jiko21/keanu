@@ -1,5 +1,5 @@
 import type { Token } from '../token';
-import type { RootAst, Statement, Statements, Status } from './ast';
+import type { Flow, RootAst, Statement, Statements, Status } from './ast';
 import { ParserError } from './error';
 import { parseStatement } from './statementParser';
 
@@ -28,6 +28,9 @@ export class Parser {
     switch (currentToken.type) {
       case 'status':
         ast = this._parseStatus();
+        break;
+      case 'ident':
+        ast = this._parseIdent();
         break;
     }
     this.currentIndex = this.currentReadIndex;
@@ -82,6 +85,70 @@ export class Parser {
       statement,
       statements,
     };
+  }
+
+  private _parseIdent(): Flow {
+    const fromIdent = this.tokens[this.currentReadIndex++];
+    let label: Token | undefined = undefined;
+    if (fromIdent.type !== 'ident') {
+      throw new ParserError(
+        `${JSON.stringify(fromIdent)} should be identifier.`,
+      );
+    }
+    this._parseHyphen();
+    if (this.tokens[this.currentReadIndex].type === 'leftParentheses') {
+      this.currentReadIndex++;
+      label = this.tokens[this.currentReadIndex++];
+      if (label.type !== 'ident') {
+        throw new ParserError(`${JSON.stringify(label)} should be identifier.`);
+      }
+      const rightParentheses = this.tokens[this.currentReadIndex++];
+      if (rightParentheses.type !== 'rightParentheses') {
+        throw new ParserError(
+          `${JSON.stringify(rightParentheses)} should be ")".`,
+        );
+      }
+      this._parseHyphen();
+    }
+    const rightAngelBracket = this.tokens[this.currentReadIndex++];
+    if (rightAngelBracket.type !== 'rightAngelBracket') {
+      throw new ParserError(
+        `${JSON.stringify(rightAngelBracket)} should be ">".`,
+      );
+    }
+    const toIdent = this.tokens[this.currentReadIndex++];
+    if (toIdent.type !== 'ident') {
+      throw new ParserError(`${JSON.stringify(toIdent)} should be identifier.`);
+    }
+    return {
+      type: 'flow',
+      from: {
+        type: 'identifier',
+        value: {
+          type: 'textWithoutSpace',
+          value: fromIdent.literal,
+        },
+      },
+      to: {
+        type: 'identifier',
+        value: {
+          type: 'textWithoutSpace',
+          value: toIdent.literal,
+        },
+      },
+      label: label
+        ? {
+            type: 'textWithSpace',
+            value: label.literal,
+          }
+        : undefined,
+    };
+  }
+
+  private _parseHyphen() {
+    while (this.tokens[this.currentReadIndex].type === 'hyphen') {
+      this.currentReadIndex++;
+    }
   }
 
   private _parseStatements(): Statements {

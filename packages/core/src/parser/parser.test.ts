@@ -319,4 +319,124 @@ describe('parser', () => {
       })} should be "}".`,
     );
   });
+
+  test('correctly parse flow', () => {
+    const input = [
+      {
+        type: 'ident',
+        literal: 'Hogehoge',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'rightAngelBracket',
+        literal: '>',
+      },
+
+      {
+        type: 'ident',
+        literal: 'Hogehoge2',
+      },
+    ];
+
+    const result = [
+      {
+        type: 'flow',
+        from: {
+          type: 'identifier',
+          value: {
+            type: 'textWithoutSpace',
+            value: 'Hogehoge',
+          },
+        },
+        to: {
+          type: 'identifier',
+          value: {
+            type: 'textWithoutSpace',
+            value: 'Hogehoge2',
+          },
+        },
+      },
+    ];
+    const target = new Parser(input);
+    expect(target.parse()).toEqual(result);
+  });
+
+  test('correctly parse flow', () => {
+    const input = [
+      {
+        type: 'ident',
+        literal: 'Hogehoge',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'leftParentheses',
+        literal: '(',
+      },
+      {
+        type: 'ident',
+        literal: 'open door',
+      },
+      {
+        type: 'rightParentheses',
+        literal: ')',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'rightAngelBracket',
+        literal: '>',
+      },
+
+      {
+        type: 'ident',
+        literal: 'Hogehoge2',
+      },
+    ];
+
+    const result = [
+      {
+        type: 'flow',
+        from: {
+          type: 'identifier',
+          value: {
+            type: 'textWithoutSpace',
+            value: 'Hogehoge',
+          },
+        },
+        to: {
+          type: 'identifier',
+          value: {
+            type: 'textWithoutSpace',
+            value: 'Hogehoge2',
+          },
+        },
+        label: {
+          type: 'textWithSpace',
+          value: 'open door',
+        },
+      },
+    ];
+    const target = new Parser(input);
+    expect(target.parse()).toEqual(result);
+  });
 });
