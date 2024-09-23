@@ -439,4 +439,165 @@ describe('parser', () => {
     const target = new Parser(input);
     expect(target.parse()).toEqual(result);
   });
+
+  test('fail when token after hyphens is not rightAngelBracket', () => {
+    const input = [
+      {
+        type: 'ident',
+        literal: 'Hogehoge',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+
+      {
+        type: 'ident',
+        literal: 'Hogehoge2',
+      },
+    ];
+    const target = new Parser(input);
+
+    expect(() => target.parse()).toThrowError(
+      `${JSON.stringify({
+        type: 'ident',
+        literal: 'Hogehoge2',
+      })} should be ">".`,
+    );
+  });
+
+  test('fail when token after > is not identifier', () => {
+    const input = [
+      {
+        type: 'ident',
+        literal: 'Hogehoge',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'rightAngelBracket',
+        literal: '>',
+      },
+      {
+        type: 'rightAngelBracket',
+        literal: '>',
+      },
+    ];
+    const target = new Parser(input);
+
+    expect(() => target.parse()).toThrowError(
+      `${JSON.stringify({
+        type: 'rightAngelBracket',
+        literal: '>',
+      })} should be identifier.`,
+    );
+  });
+
+  test('fail when token after ( is not identifier', () => {
+    const input = [
+      {
+        type: 'ident',
+        literal: 'Hogehoge',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'leftParentheses',
+        literal: '(',
+      },
+      {
+        type: 'rightAngelBracket',
+        literal: '>',
+      },
+    ];
+    const target = new Parser(input);
+
+    expect(() => target.parse()).toThrowError(
+      `${JSON.stringify({
+        type: 'rightAngelBracket',
+        literal: '>',
+      })} should be identifier.`,
+    );
+  });
+
+  test('fail when token after identifier is not leftParentheses', () => {
+    const input = [
+      {
+        type: 'ident',
+        literal: 'Hogehoge',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+      {
+        type: 'leftParentheses',
+        literal: '(',
+      },
+      {
+        type: 'ident',
+        literal: 'open door',
+      },
+      {
+        type: 'rightAngelBracket',
+        literal: '>',
+      },
+    ];
+    const target = new Parser(input);
+
+    expect(() => target.parse()).toThrowError(
+      `${JSON.stringify({
+        type: 'rightAngelBracket',
+        literal: '>',
+      })} should be ")".`,
+    );
+  });
+
+  test('fail when first token is neigher token or status', () => {
+    const input = [
+      {
+        type: 'hyphen',
+        literal: '-',
+      },
+    ];
+    const target = new Parser(input);
+
+    expect(() => target.parse()).toThrowError('could not parse correctly');
+  });
 });
