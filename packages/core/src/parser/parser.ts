@@ -90,11 +90,6 @@ export class Parser {
   private _parseIdent(): Flow {
     const fromIdent = this.tokens[this.currentReadIndex++];
     let label: Token | undefined = undefined;
-    if (fromIdent.type !== 'ident') {
-      throw new ParserError(
-        `${JSON.stringify(fromIdent)} should be identifier.`,
-      );
-    }
     this._parseHyphen();
     if (this.tokens[this.currentReadIndex].type === 'leftParentheses') {
       this.currentReadIndex++;
