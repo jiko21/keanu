@@ -1,0 +1,16 @@
+{
+  "name": "@keanu/svg-engine",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "type": "tsc --noEmit",
+    "test": "nx vite:test --coverage",
+    "lint": "pnpm biome check",
+    "format": "pnpm biome check --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
